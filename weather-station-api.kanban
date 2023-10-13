@@ -1,0 +1,63 @@
+{
+  "lists": [
+    {
+      "id": "42ab1ac0-9701-42a9-aa45-dab3ec69a6c7",
+      "title": "Backlog",
+      "cards": [
+        {
+          "id": "5ac686dc-d666-4e74-958e-5128cec7b3d8",
+          "listId": "42ab1ac0-9701-42a9-aa45-dab3ec69a6c7",
+          "title": "Set up UOW",
+          "description": "",
+          "labels": [],
+          "checkboxes": [],
+          "comments": []
+        },
+        {
+          "id": "c7595f2d-ca93-43b7-903e-b8f6e8ea0cac",
+          "listId": "42ab1ac0-9701-42a9-aa45-dab3ec69a6c7",
+          "title": "Get weather station details with latest variable: repository layer",
+          "description": "",
+          "labels": [],
+          "checkboxes": [],
+          "comments": []
+        },
+        {
+          "id": "0e42aa08-0704-4d6a-aa2e-b790c348d36b",
+          "listId": "42ab1ac0-9701-42a9-aa45-dab3ec69a6c7",
+          "title": "Get weather station details with latest variable: service and controller layers",
+          "description": "",
+          "labels": [],
+          "checkboxes": [],
+          "comments": []
+        },
+        {
+          "id": "bd8c2095-c978-47de-a05b-abf0d3b12917",
+          "listId": "42ab1ac0-9701-42a9-aa45-dab3ec69a6c7",
+          "title": "Test through Postman",
+          "description": "",
+          "labels": [],
+          "checkboxes": [],
+          "comments": []
+        }
+      ]
+    },
+    {
+      "id": "75adbf12-dd7d-4cbe-81c5-55ed6a97c0bd",
+      "title": "In Progress",
+      "cards": []
+    },
+    {
+      "id": "8cf23b97-1689-434a-ace1-1337246f78b5",
+      "title": "Completed",
+      "cards": []
+    }
+  ],
+  "archive": {
+    "lists": [],
+    "cards": []
+  },
+  "settings": {
+    "labels": []
+  }
+}
