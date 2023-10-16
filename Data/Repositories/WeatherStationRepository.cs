@@ -1,5 +1,6 @@
-public class WeatherStationRepository : IWeatherStationRepository 
+public class WeatherStationRepository : GenericRepository<WeatherStationEntity>, IWeatherStationRepository
 {
+
     public ICollection<WeatherStationWithLatestWeatherVariable> GetWeatherStationsWithLatestVariable()
     {
         // using var connection = SqlConnection
