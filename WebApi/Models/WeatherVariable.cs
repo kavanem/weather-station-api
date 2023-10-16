@@ -1,3 +1,5 @@
+using System;
+
 public class WeatherVariable 
 {
     public decimal Value { get; set; }
