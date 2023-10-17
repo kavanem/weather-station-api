@@ -1,11 +1,15 @@
-// public class WeatherStationRepository : GenericRepository<WeatherStationEntity>, IWeatherStationRepository
-// {
+using Data.Repositories;
 
-//     public ICollection<WeatherStationWithLatestWeatherVariable> GetWeatherStationsWithLatestVariable()
-//     {
-//         // using var connection = SqlConnection
+public class WeatherStationRepository : GenericRepository<WeatherStationEntity>, IWeatherStationRepository
+{
+    public WeatherStationRepository(WeatherStationDbContext dbContext) : base(dbContext)
+    {
+    }
 
+    public ICollection<WeatherStationWithLatestWeatherVariable> GetWeatherStationsWithLatestVariable()
+    {
+        // using var connection = SqlConnection
 
-//         return new List<WeatherStationWithLatestWeatherVariable>();
-//     }
-// }
+        return new List<WeatherStationWithLatestWeatherVariable>();
+    }
+}

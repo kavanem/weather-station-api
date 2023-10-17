@@ -1,4 +1,4 @@
-// public interface IWeatherStationRepository 
-// {
-//     ICollection<WeatherStationWithLatestWeatherVariable> GetWeatherStationsWithLatestVariable();
-// }
+public interface IWeatherStationRepository 
+{
+    ICollection<WeatherStationWithLatestWeatherVariable> GetWeatherStationsWithLatestVariable();
+}
