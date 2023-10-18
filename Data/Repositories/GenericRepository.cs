@@ -1,14 +1,15 @@
 using System.Linq.Expressions;
 using Data.Repositories;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 
-public class GenericRepository<T> : IGenericRepository<T> where T : class
+public class GenericRepository<T> : BaseRepository, IGenericRepository<T> where T : class
     {
         protected readonly WeatherStationDbContext _dbContext;
         private readonly DbSet<T> _entitySet;
 
 
-        public GenericRepository(WeatherStationDbContext dbContext)
+        public GenericRepository(WeatherStationDbContext dbContext, IConfiguration configuration) : base(configuration)
         {
             _dbContext = dbContext;
             _entitySet = _dbContext.Set<T>();
