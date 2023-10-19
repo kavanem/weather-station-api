@@ -51,7 +51,7 @@ public class WeatherStationRepository : GenericRepository<WeatherStationEntity>,
                         LatestWeatherVariable = new WeatherVariable 
                         {
                             Id = matchingLatestWeatherVariable.Id,
-                            LongName = matchingLatestWeatherVariable.LongName
+                            LongName = matchingLatestWeatherVariable.LongName,
                             Unit = matchingLatestWeatherVariable.Unit,
                             Value = matchingLatestWeatherVariable.Value,
                             Timestamp = matchingLatestWeatherVariable.Timestamp,
