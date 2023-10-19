@@ -16,20 +16,51 @@ public class WeatherStationRepository : GenericRepository<WeatherStationEntity>,
             using var connection = new SqlConnection(ConnectionString);
 
             var query = @"
-            SELECT WS.Id [WeatherStationId],
+            DECLARE TABLE @WeatherStationIds (Id INT)
+
+            SELECT INTO @WeatherStationIds (Id) 
+            VALUES(WS.Id [WeatherStationId])
             FROM WeatherStations WS
-            INNER JOIN WeatherStationVariables WSV
-            ON WSV.WeatherStationId = WS.Id";
+            WHERE WS.IsActive = 1
 
-            // using (var multi = await connection.QueryMultipleAsync(query))
-            // {
-            //     var weatherStations = multi.Read<WeatherStationEntity>();
-            //     var weatherStationVariables = multi.Read<WeatherStationEntity>();
-            // }
+            SELECT TOP 1 WSV.*
+            FROM Variables WSV
+            INNER JOIN @WeatherStationIds WSI
+            ON WSV.WeatherStationId = WSI.Id
+            ORDER BY WSI.Timestamp DESC";
 
-            var t = connection.Query<WeatherStationWithLatestWeatherVariable>(query).ToList();
+            var weatherStationsWithLatestWeatherVariable = new List<WeatherStationWithLatestWeatherVariable>();
+            using (var multi = await connection.QueryMultipleAsync(query))
+            {
+                var weatherStations = multi.Read<WeatherStationEntity>();
+                var weatherVariables = multi.Read<WeatherVariableEntity>();
 
-            return t;
+                foreach (var weatherStation in weatherStations)
+                {
+                    var matchingLatestWeatherVariable = weatherVariables.Where(x => x.WeatherStationId == weatherStation.Id)?.FirstOrDefault();
+
+                    if (matchingLatestWeatherVariable == null)
+                        continue;
+
+                    weatherStationsWithLatestWeatherVariable.Add(new WeatherStationWithLatestWeatherVariable
+                    {
+                        Id = weatherStation.Id,
+                        Name = weatherStation.Name,
+                        Site = weatherStation.Site,
+                        Portfolio = weatherStation.Portfolio,
+                        LatestWeatherVariable = new WeatherVariable 
+                        {
+                            Id = matchingLatestWeatherVariable.Id,
+                            LongName = matchingLatestWeatherVariable.LongName
+                            Unit = matchingLatestWeatherVariable.Unit,
+                            Value = matchingLatestWeatherVariable.Value,
+                            Timestamp = matchingLatestWeatherVariable.Timestamp,
+                        }
+                    });
+                }
+            }
+
+            return weatherStationsWithLatestWeatherVariable;
         }
         catch (System.Exception)
         {
