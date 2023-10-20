@@ -1,22 +1,24 @@
 using Data.Repositories;
+using Microsoft.Extensions.Configuration;
 
 public class UnitOfWork : IUnitOfWork
 {
     private readonly WeatherStationDbContext _dbContext;
-    private IWeatherStationRepository _bookRepository;
+    private readonly IConfiguration _configuration;
+    private IWeatherStationRepository _weatherStationRepository;
 
 
-    public UnitOfWork(WeatherStationDbContext dbContext)
+    public UnitOfWork(WeatherStationDbContext dbContext, IConfiguration configuration)
     {
         _dbContext = dbContext;
+        _configuration = configuration;
     }
 
 
-    public IWeatherStationRepository BookRepository
+    public IWeatherStationRepository WeatherStationRepository
     {
-        get { return _bookRepository = _bookRepository ?? new WeatherStationRepository(_dbContext); }
+        get { return _weatherStationRepository = _weatherStationRepository ?? new WeatherStationRepository(_dbContext, _configuration); }
     }
-
 
     public void Commit()
         => _dbContext.SaveChanges();

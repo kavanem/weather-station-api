@@ -7,9 +7,9 @@ public class WeatherStationService
         _weatherStationRepository = weatherStationRepository;
     }
 
-    public ICollection<WeatherStationWithLatestWeatherVariable> GetWeatherStationWithLatestWeatherVariables() 
+    public async Task<ICollection<WeatherStationWithLatestWeatherVariable>> GetWeatherStationWithLatestWeatherVariablesAsync() 
     {
-        var weatherStationsWithLatestWeatherVariables = _weatherStationRepository.GetWeatherStationsWithLatestVariable();
+        var weatherStationsWithLatestWeatherVariables = await _weatherStationRepository.GetWeatherStationsWithLatestVariable();
 
         return weatherStationsWithLatestWeatherVariables;
     }
