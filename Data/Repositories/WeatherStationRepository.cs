@@ -33,7 +33,7 @@ public class WeatherStationRepository : GenericRepository<WeatherStationEntity>,
             using (var multi = await connection.QueryMultipleAsync(query))
             {
                 var weatherStations = multi.Read<WeatherStationEntity>();
-                var weatherVariables = multi.Read<WeatherVariableEntity>();
+                var weatherVariables = multi.Read<VariableEntity>();
 
                 foreach (var weatherStation in weatherStations)
                 {
