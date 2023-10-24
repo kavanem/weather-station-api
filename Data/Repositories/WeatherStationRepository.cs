@@ -9,27 +9,36 @@ public class WeatherStationRepository : GenericRepository<WeatherStationEntity>,
     {
     }
 
-    public async Task<ICollection<WeatherStationWithLatestWeatherVariable>> GetWeatherStationsWithLatestVariable()
+    public async Task<ICollection<WeatherStationWithLatestWeatherVariable>> GetWeatherStationsWithLatestVariable(string state = null)
     {
         try
         {
             using var connection = new SqlConnection(ConnectionString);
 
             var query = @"
-            DECLARE TABLE @WeatherStationIds (Id INT)
+            SELECT *
+                WS.Name [WeatherStationName]
+                WS.State [WeatherStationState],
+                WS.Site [WeatherStationSite],
+                WS.Portfolio [WeatherStationPortfolio],
+                D.Timestamp [TimeStamp]
+                V.LongName [VariableLongName],
+                V.Unit [Unit]
+            FROM Data D
+            INNER JOIN WeatherStations WS
+            ON WS.Id = D.WeatherStationId
+            INNER JOIN Variables V
+            ON V.Id = D.VariableId 
+            GROUP BY D.WeatherStationId, D.Timestamp
+            ORDER BY D.WeatherStationId, D.Timestamp DESC
+            
 
-            SELECT INTO @WeatherStationIds (Id) 
-            VALUES(WS.Id [WeatherStationId])
-            FROM WeatherStations WS
-            WHERE WS.IsActive = 1
-
-            SELECT TOP 1 WSV.*
-            FROM Variables WSV
-            INNER JOIN @WeatherStationIds WSI
-            ON WSV.WeatherStationId = WSI.Id
-            ORDER BY WSI.Timestamp DESC";
+            ";
+            // TODO: Filter by state      
 
             var weatherStationsWithLatestWeatherVariable = new List<WeatherStationWithLatestWeatherVariable>();
+
+            //TODO: do a dynamic read and assign to type
             using (var multi = await connection.QueryMultipleAsync(query))
             {
                 var weatherStations = multi.Read<WeatherStationEntity>();
@@ -48,7 +57,7 @@ public class WeatherStationRepository : GenericRepository<WeatherStationEntity>,
                         Name = weatherStation.Name,
                         Site = weatherStation.Site,
                         Portfolio = weatherStation.Portfolio,
-                        LatestWeatherVariable = new WeatherVariable 
+                        LatestWeatherVariable = new WeatherVariable
                         {
                             Id = matchingLatestWeatherVariable.Id,
                             LongName = matchingLatestWeatherVariable.LongName,
