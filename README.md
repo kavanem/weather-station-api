@@ -14,7 +14,7 @@ Portfolio NVARCHAR(255),
 State NVARCHAR(255)
 )
 
-TODO:
+TODO: sql for adding other tables
 ```
 
 The data from WeatherStations.csv has been imported to the database using:
@@ -29,6 +29,8 @@ WITH
     ROWTERMINATOR = '0x0a',
     FIELDTERMINATOR = ','
 )
+
+TODO: sql for seeding other tables
 ```
 
 In the above, the `FROM` was important. The csv file needed to be in the SQL container created. Therefore the file had to be copied over from the hard drive to the container using:
