@@ -38,7 +38,7 @@ In the above, the `FROM` was important. The csv file needed to be in the SQL con
 
 `78db850d4c06` being the container ID.
 
-The change was committed to the image and a new tag was created. Then this image was pushed to the Docker Hub.
+The change was committed to the image and a new tag was created. Then this image was pushed to Docker Hub.
 This image now can be used as the database when running the app.
 
 
