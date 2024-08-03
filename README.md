@@ -13,8 +13,6 @@ Site NVARCHAR(255),
 Portfolio NVARCHAR(255),
 State NVARCHAR(255)
 )
-
-TODO: sql for adding other tables
 ```
 
 The data from WeatherStations.csv has been imported to the database using:
@@ -29,8 +27,6 @@ WITH
     ROWTERMINATOR = '0x0a',
     FIELDTERMINATOR = ','
 )
-
-TODO: sql for seeding other tables
 ```
 
 In the above, the `FROM` was important. The csv file needed to be in the SQL container created. Therefore the file had to be copied over from the hard drive to the container using:
@@ -41,5 +37,6 @@ In the above, the `FROM` was important. The csv file needed to be in the SQL con
 The change was committed to the image and a new tag was created. Then this image was pushed to Docker Hub.
 This image now can be used as the database when running the app.
 
+I used Azure Data Studio to view the data in the tables whilte running the Docker containers. 
 I continued to seed in the rest of the data to the database using the same process.
 
