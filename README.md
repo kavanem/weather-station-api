@@ -3,7 +3,7 @@
 ## Database setup
 A Docker SQL image has been created based on Azure SQL Edge image.
 
-Tables `WeatherStations`, `Variables` and `Data` has been created using:
+Tables `WeatherStations`, `Variables` and `Data` have been created using:
 
 ```
 CREATE TABLE WeatherStations(
@@ -41,4 +41,5 @@ In the above, the `FROM` was important. The csv file needed to be in the SQL con
 The change was committed to the image and a new tag was created. Then this image was pushed to Docker Hub.
 This image now can be used as the database when running the app.
 
+I continued to seed in the rest of the data to the database using the same process.
 
